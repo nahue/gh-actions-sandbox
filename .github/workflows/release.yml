@@ -35,6 +35,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v5
         with:
           configuration: ".github/config/configuration.json"
+          ignorePreReleases: "${{ !contains(github.ref, '-prerelease') }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           fromTag: ${{ steps.bump.outputs.previous_tag }}
