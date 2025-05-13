@@ -11,6 +11,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   release:
@@ -34,7 +35,7 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          configuration: ".github/config/changelog.json"
+          configuration: ".github/config/configuration.json"
           fromTag: ${{ steps.bump.outputs.previous_tag }}
           toTag: ${{ steps.bump.outputs.new_tag }}
 
