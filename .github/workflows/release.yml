@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Bump version and push tag
         id: bump
         uses: mathieudutour/github-tag-action@v6.2
@@ -43,3 +43,4 @@ jobs:
         with:
           body: ${{ steps.bump.outputs.changelog }}
           tag_name: ${{ steps.bump.outputs.new_tag }}
+          prerelease: true
