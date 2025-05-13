@@ -35,9 +35,47 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          configuration: ".github/config/changelog.json"
           fromTag: ${{ steps.bump.outputs.previous_tag }}
           toTag: ${{ steps.bump.outputs.new_tag }}
+          configurationJson: |
+            {
+                "template": "#{{CHANGELOG}}",
+                "categories": [
+                    {
+                        "title": "## 🚀 Features",
+                        "labels": [
+                            "feature"
+                        ]
+                    },
+                    {
+                        "title": "## 🐛 Fixes",
+                        "labels": [
+                            "fix"
+                        ]
+                    },
+                    {
+                        "title": "## 🧪 Tests",
+                        "labels": [
+                            "test"
+                        ]
+                    },
+                    {
+                        "title": "## 💬 Other",
+                        "labels": [
+                            "other",
+                            "dependencies",
+                            "chore"
+                        ]
+                    }
+                ],
+                "label_extractor": [
+                    {
+                        "pattern": "^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test){1}(\\([\\w\\-\\.]+\\))?(!)?: ([\\w ])+([\\s\\S]*)",
+                        "on_property": "title",
+                        "target": "$1"
+                    }
+                ]
+            }
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
